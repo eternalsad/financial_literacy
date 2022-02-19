@@ -31,7 +31,7 @@ func (transactionRepo *TransactionRepo) ReadTransaction() ([]*models.Transaction
 	return nil, nil
 }
 
-func (transactionRepo *TransactionRepo) UpdateTransaction() error {
+func (transactionRepo *TransactionRepo) UpdateTransaction(*models.Transaction) error {
 	return nil
 }
 

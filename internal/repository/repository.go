@@ -10,24 +10,24 @@ import (
 // will be used as interface with which service
 // can communicate in order to have access to db
 type Repository struct {
-	transaction
-	category
+	Transaction
+	Category
 }
 
 func NewRepository(db *sql.DB) *Repository {
-	return &Repository{transaction: NewTransaction(db), category: NewCategoryRepo(db)}
+	return &Repository{Transaction: NewTransaction(db), Category: NewCategoryRepo(db)}
 }
 
-type transaction interface {
+type Transaction interface {
 	CreateTransaction(*models.Transaction) error
 	ReadTransaction() ([]*models.Transaction, error)
-	UpdateTransaction() error
+	UpdateTransaction(*models.Transaction) error
 	DeleteTransaction(int) error
 }
 
-type category interface {
+type Category interface {
 	CreateCategory(*models.Category) error
 	ReadCategory(id int) (*models.Category, error)
-	UpdateCategory() error
+	UpdateCategory(*models.Category) error
 	DeleteCategory(int) error
 }
