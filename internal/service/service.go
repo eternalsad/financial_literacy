@@ -7,6 +7,7 @@ import (
 
 type Service struct {
 	Category
+	Transaction
 }
 
 type Category interface {
@@ -16,8 +17,12 @@ type Category interface {
 	DeleteCategory(int) error
 }
 
+type Transaction interface {
+	CreateTransaction(*models.Transaction) error
+}
+
 func NewService(repo *repository.Repository) *Service {
 	return &Service{
-		Category: NewCategoryService(repo),
-	}
+		Category:    NewCategoryService(repo),
+		Transaction: NewTransactionService(repo)}
 }

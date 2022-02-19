@@ -23,8 +23,16 @@ func NewTransaction(db *sql.DB) *TransactionRepo {
 // 	DeleteTransaction(int) error
 // }
 
-func (transactionRepo *TransactionRepo) CreateTransaction(*models.Transaction) error {
-	return nil
+func (transactionRepo *TransactionRepo) CreateTransaction(transactionInfo *models.Transaction) error {
+	query := `INSERT INTO transactions (transaction_name, amount, transaction_date, 
+	isIncome, comment, category_id) VALUES (?, ?, ?, ?, ?, ?)`
+	stmt, err := transactionRepo.db.Prepare(query)
+	if err != nil {
+		return err
+	}
+	// t := transactionInfo
+	_, err = stmt.Exec(transactionInfo.TransactionName, transactionInfo.Amount, transactionInfo.TransactionDate, transactionInfo.IsIncome, transactionInfo.Comment, transactionInfo.CategoryID)
+	return err
 }
 
 func (transactionRepo *TransactionRepo) ReadTransaction() ([]*models.Transaction, error) {
