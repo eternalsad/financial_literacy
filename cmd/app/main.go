@@ -30,8 +30,8 @@ func main() {
 	mux.HandleFunc("/update/transaction", handler.UpdateTransaction)
 	mux.HandleFunc("/read/transaction/", handler.ReadTransaction)
 	mux.HandleFunc("/delete/transaction/", handler.DeleteTransaction)
-	log.Println("starting server at localhost:9090")
-	err = http.ListenAndServe("localhost:9090", mux)
+	log.Println("starting server at localhost:8080")
+	err = http.ListenAndServe("localhost:8080", mux)
 	if err != nil {
 		log.Println(err)
 		return
