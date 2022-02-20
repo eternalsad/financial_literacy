@@ -19,6 +19,8 @@ type Category interface {
 
 type Transaction interface {
 	CreateTransaction(*models.Transaction) error
+	UpdateTransaction(*models.Transaction) error
+	ReadTransaction(id int) (*models.Transaction, error)
 }
 
 func NewService(repo *repository.Repository) *Service {

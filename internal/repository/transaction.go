@@ -3,6 +3,9 @@ package repository
 import (
 	"database/sql"
 	"financial_literacy/models"
+	"fmt"
+	"reflect"
+	"strconv"
 )
 
 // TransactionRepo ...
@@ -35,12 +38,73 @@ func (transactionRepo *TransactionRepo) CreateTransaction(transactionInfo *model
 	return err
 }
 
-func (transactionRepo *TransactionRepo) ReadTransaction() ([]*models.Transaction, error) {
-	return nil, nil
+func (transactionRepo *TransactionRepo) ReadTransaction(id int) (*models.Transaction, error) {
+	query := "SELECT * from transactions WHERE id=?"
+	stmt, err := transactionRepo.db.Prepare(query)
+	if err != nil {
+		return nil, err
+	}
+	res, err := stmt.Query(id)
+	if err != nil {
+		return nil, err
+	}
+	transaction := &models.Transaction{}
+	for res.Next() {
+		var name string
+		var amount float32
+		var date int
+		var isIncome bool
+		var comment string
+		var categoryID int
+		err = res.Scan(&id, &name, &amount, &date, &isIncome, &comment, &categoryID)
+		if err != nil {
+			return nil, err
+		}
+		transaction.TransactionName = name
+		transaction.Amount = amount
+		transaction.TransactionDate = date
+		transaction.IsIncome = isIncome
+		transaction.Comment = comment
+		transaction.CategoryID = categoryID
+	}
+	return transaction, nil
 }
 
-func (transactionRepo *TransactionRepo) UpdateTransaction(*models.Transaction) error {
-	return nil
+func (transactionRepo *TransactionRepo) UpdateTransaction(transactionInfo *models.Transaction) error {
+	query := "UPDATE transactions "
+	columns := []string{}
+	var values []interface{}
+	e := reflect.ValueOf(transactionInfo).Elem()
+	fmt.Println(e)
+	for i := 0; i < e.NumField(); i++ {
+		if !e.Field(i).IsZero() {
+			columns = append(columns, e.Type().Field(i).Tag.Get("json"))
+			values = append(values, e.Field(i).Interface())
+		}
+	}
+	vals := "SET "
+	for i, c := range columns {
+		vals += c
+		vals += " = "
+		v := fmt.Sprintf("%v", values[i])
+		if _, err := strconv.Atoi(v); err != nil {
+			vals += `"` + v + `"`
+		} else {
+			vals += v
+		}
+		if i < len(columns)-1 {
+			vals += ", "
+		}
+	}
+	query += vals
+	query += fmt.Sprintf(" WHERE id=%v", transactionInfo.ID)
+	fmt.Println(query)
+	stmt, err := transactionRepo.db.Prepare(query)
+	if err != nil {
+		return err
+	}
+	_, err = stmt.Exec()
+	return err
 }
 
 func (transactionRepo *TransactionRepo) DeleteTransaction(id int) error {

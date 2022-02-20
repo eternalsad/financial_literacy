@@ -20,7 +20,7 @@ func NewRepository(db *sql.DB) *Repository {
 
 type Transaction interface {
 	CreateTransaction(*models.Transaction) error
-	ReadTransaction() ([]*models.Transaction, error)
+	ReadTransaction(int) (*models.Transaction, error)
 	UpdateTransaction(*models.Transaction) error
 	DeleteTransaction(int) error
 }

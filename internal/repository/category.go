@@ -22,7 +22,7 @@ func NewCategoryRepo(db *sql.DB) *CategoryRepo {
 // }
 
 func (categoryRepo *CategoryRepo) CreateCategory(categoryInfo *models.Category) error {
-	query := "INSERT into categories (name) VALUES (?)"
+	query := "INSERT into categories (category_name) VALUES (?)"
 	stmt, err := categoryRepo.db.Prepare(query)
 	if err != nil {
 		return err

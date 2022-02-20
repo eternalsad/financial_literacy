@@ -19,4 +19,6 @@
 ### for adding transaction you can use:
     curl -X POST localhost:8080/add/transaction -H 'Content-Type: application/json' -d '{"transaction_name":"first", "amount": 1.5, "isIncome": true, "comment": "yahabalya", "category_id": 3}'
 ### for reading transaction you can use:
-    
+
+### for updating transaction you can use:
+    curl -X POST localhost:8080/update/transaction -H 'Content-Type: application/json' -d '{"transaction_name":"first", "amount": 1.5, "isIncome": true, "comment": "yahabalya", "category_id": 3}'
