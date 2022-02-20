@@ -8,16 +8,16 @@
     you can use tomcat
     but in our school we can't so I used regular cURL
 ### for adding category use:
-    curl -X POST localhost:8080/add/category -H 'Content-Type: application/json' -d '{"name":"name1"}'
+    curl -X POST localhost:8080/add/category -H 'Content-Type: application/json' -d '{"category_name":"name1"}'
 ### for reading category use:
     curl -X POST localhost:8080/read/category/1
 ### for updating category use: 
-    curl -X POST localhost:8080/update/category -H 'Content-Type: application/json' -d '{"id": 3, "name":"new2"}'
+    curl -X POST localhost:8080/update/category -H 'Content-Type: application/json' -d '{"id": 3, "category_name":"new2"}'
 ### for deleting category use:
     curl -X POST localhost:8080/delete/category/4
 
 ### for adding transaction you can use:
-    curl -X POST localhost:8080/add/transaction -H 'Content-Type: application/json' -d '{"transaction_name":"first", "amount": 1.5, "isIncome": true, "comment": "gagarinskiy dom 3", "category_id": 3}'
+    curl -X POST localhost:8080/add/transaction -H 'Content-Type: application/json' -d '{"transaction_name":"first", "amount": 1.5, "transaction_date": "2022-02-21 12:36:02", "isIncome": true, "comment": "gagarinskiy dom 3", "category_id": 3}'
 ### for reading transaction you can use:
     curl -X POST localhost:8080/read/transaction/1
 ### for updating transaction you can use:

@@ -2,7 +2,7 @@ CREATE TABLE "transactions" (
 	"id"	INTEGER,
 	"transaction_name"	TEXT,
 	"amount"	NUMERIC,
-	"transaction_date"	INTEGER,
+	"transaction_date"	DATETIME,
 	"isIncome"	BOOLEAN,
 	"comment"	TEXT,
 	"category_id"	INTEGER,

@@ -52,7 +52,7 @@ func (transactionRepo *TransactionRepo) ReadTransaction(id int) (*models.Transac
 	for res.Next() {
 		var name string
 		var amount float32
-		var date int
+		var date string
 		var isIncome bool
 		var comment string
 		var categoryID int
