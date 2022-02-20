@@ -28,3 +28,10 @@ func (service *TransactionService) ReadTransaction(id int) (*models.Transaction,
 func (service *TransactionService) UpdateTransaction(transactionInfo *models.Transaction) error {
 	return service.repo.UpdateTransaction(transactionInfo)
 }
+
+func (service *TransactionService) DeleteTransaction(id int) error {
+	if id < 0 {
+		return fmt.Errorf("invalid transaction id")
+	}
+	return service.repo.DeleteTransaction(id)
+}

@@ -21,6 +21,7 @@ type Transaction interface {
 	CreateTransaction(*models.Transaction) error
 	UpdateTransaction(*models.Transaction) error
 	ReadTransaction(id int) (*models.Transaction, error)
+	DeleteTransaction(id int) error
 }
 
 func NewService(repo *repository.Repository) *Service {

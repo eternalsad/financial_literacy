@@ -108,5 +108,11 @@ func (transactionRepo *TransactionRepo) UpdateTransaction(transactionInfo *model
 }
 
 func (transactionRepo *TransactionRepo) DeleteTransaction(id int) error {
-	return nil
+	query := "DELETE FROM transactions WHERE id = ?"
+	stmt, err := transactionRepo.db.Prepare(query)
+	if err != nil {
+		return err
+	}
+	_, err = stmt.Exec(id)
+	return err
 }
