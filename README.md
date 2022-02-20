@@ -17,7 +17,7 @@
     curl -X POST localhost:8080/delete/category/4
 
 ### for adding transaction you can use:
-    curl -X POST localhost:8080/add/transaction -H 'Content-Type: application/json' -d '{"transaction_name":"first", "amount": 1.5, "isIncome": true, "comment": "yahabalya", "category_id": 3}'
+    curl -X POST localhost:8080/add/transaction -H 'Content-Type: application/json' -d '{"transaction_name":"first", "amount": 1.5, "isIncome": true, "comment": "gagarinskiy dom 3", "category_id": 3}'
 ### for reading transaction you can use:
     curl -X POST localhost:8080/read/transaction/1
 ### for updating transaction you can use:
