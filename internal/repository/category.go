@@ -22,13 +22,14 @@ func NewCategoryRepo(db *sql.DB) *CategoryRepo {
 // }
 
 func (categoryRepo *CategoryRepo) CreateCategory(categoryInfo *models.Category) error {
+	fmt.Println(categoryInfo)
 	query := "INSERT into categories (category_name) VALUES (?)"
 	stmt, err := categoryRepo.db.Prepare(query)
 	if err != nil {
 		return err
 	}
-	stmt.Exec(categoryInfo.Name)
-	return nil
+	_, err = stmt.Exec(categoryInfo.Name)
+	return err
 }
 
 func (categoryRepo *CategoryRepo) ReadCategory(id int) (*models.Category, error) {
@@ -61,9 +62,9 @@ func (category *CategoryRepo) UpdateCategory(categoryInfo *models.Category) erro
 		fmt.Errorf("category id is nil")
 	}
 	if categoryInfo.Name == "" {
-		fmt.Errorf("category name is nil")
+		fmt.Errorf("category category_name is nil")
 	}
-	query := "UPDATE categories SET name = ? WHERE id = ?"
+	query := "UPDATE categories SET category_name = ? WHERE id = ?"
 	stmt, err := category.db.Prepare(query)
 	if err != nil {
 		return err
